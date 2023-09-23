@@ -1,0 +1,9 @@
+FROM python:bullseye
+
+ENV PATH="/app/.local/bin:${PATH}"
+
+WORKDIR /app
+ADD . .
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt

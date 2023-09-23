@@ -1,0 +1,15 @@
+# virtualenv
+.venv
+venv/
+ENV/
+.vscode
+
+# dotenv
+*.env
+!app.env
+
+# Django stuff:
+*.log
+
+
+__pycache__/

@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  web:
+    image: store_io:1.0.0
+    container_name: store_io_web
+    command: "./entrypoint.sh ${MODE}"
+    volumes:
+    - ./:/app
+    env_file:
+    - app.env
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    expose:
+      - 8000
+    networks:
+    - store
+
+  cache:
+    image: redis:6-bullseye
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+    networks:
+    - store
+
+  db:
+    image: postgres:14-bullseye
+    environment:
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=admin
+    - POSTGRES_DB=targetio_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+    - store
+
+  nginx:
+    image: target_nginx:1.0.0
+    depends_on:
+      - web
+    ports:
+      - 80:80
+    networks:
+    - store
+
+networks:
+  store:
