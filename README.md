@@ -26,6 +26,11 @@ export STORE_DB_PORT=5432
 export STORE_CACHE_LOCATION='redis://cache:6379/0'
 export STORE_TOKEN_CACHE_LOCATION='redis://cache:6379/1'
 export STORE_IDEMPOTENT_CACHE_URL='redis://cache:6379/2'
+
+export STORE_S3_ENDPOINT_URL='http://minio:9000'
+export STORE_S3_ACCESS_KEY_ID='minioadmin'
+export STORE_S3_SECRET_ACCESS_KEY='minioadmin'
+export STORE_S3_STORAGE_BUCKET_NAME='store.io'
 ```
 once time run command for build image:
 ```bash

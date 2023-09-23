@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'accounts',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +87,18 @@ CACHES = {
         'LOCATION': getenv('STORE_IO_IDEMPOTENT_CACHE_URL'),
     },
 }
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
+    }
+}
+
+AWS_ACCESS_KEY_ID = getenv('STORE_S3_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = getenv('STORE_S3_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = getenv('STORE_S3_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = getenv('STORE_S3_ENDPOINT_URL')
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
